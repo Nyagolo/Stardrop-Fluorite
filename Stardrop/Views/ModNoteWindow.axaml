@@ -1,0 +1,38 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i18n="clr-namespace:Stardrop.Utilities.Extension"
+        x:Class="Stardrop.Views.ModNoteWindow"
+        Title="{i18n:Translate ui.note_window.title}"
+        Width="680" Height="460" MinWidth="400" MinHeight="270"
+        WindowStartupLocation="CenterOwner" Background="{DynamicResource ThemeBackgroundBrush}"
+        Icon="/Assets/icon.ico">
+    <Window.Styles>
+        <Style Selector="Button">
+            <Setter Property="Foreground" Value="{DynamicResource ThemeForegroundBrush}"/>
+            <Setter Property="Background" Value="{DynamicResource ThemeBackgroundBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource HighlightBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+        <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="TextBlock.Foreground" Value="{DynamicResource ThemeForegroundBrush}"/>
+            <Setter Property="Background" Value="{DynamicResource ButtonHoverBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource HighlightBrush}"/>
+        </Style>
+        <Style Selector="Button:pressed /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="TextBlock.Foreground" Value="{DynamicResource ThemeForegroundBrush}"/>
+            <Setter Property="Background" Value="{DynamicResource ButtonPressedBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource HighlightBrush}"/>
+        </Style>
+    </Window.Styles>
+    <Grid Margin="18" RowDefinitions="Auto,*,Auto">
+        <TextBlock Name="modName" FontSize="16" FontWeight="SemiBold" TextWrapping="Wrap"
+                   Foreground="{DynamicResource ThemeForegroundBrush}" Margin="0,0,0,12"/>
+        <Border Grid.Row="1" Padding="6" BorderThickness="1" BorderBrush="{DynamicResource HighlightBrush}">
+            <ContentControl Name="editorHost" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+        </Border>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8" Margin="0,12,0,0">
+            <Button Click="Cancel_Click" Content="{i18n:Translate internal.cancel}"/>
+            <Button Click="Save_Click" FontWeight="SemiBold" Content="{i18n:Translate ui.note_window.save}"/>
+        </StackPanel>
+    </Grid>
+</Window>

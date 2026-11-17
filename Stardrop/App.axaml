@@ -1,0 +1,25 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:Stardrop"
+             x:Class="Stardrop.App"
+             Name="Stardrop">
+	<Application.DataTemplates>
+		<local:ViewLocator/>
+	</Application.DataTemplates>
+
+	<Application.Styles>
+		<FluentTheme Mode="Light" />
+		<StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+		<Style Selector="Window">
+			<Setter Property="FontFamily" Value="Microsoft YaHei" />
+		</Style>
+		<Style Selector="TextBox">
+			<Setter Property="FontFamily" Value="Microsoft YaHei" />
+		</Style>
+		<Style Selector="ScrollViewer.menuscroller">
+			<Setter Property="MaxHeight" Value="360"/>
+			<Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+			<Setter Property="AllowAutoHide" Value="False"/>
+		</Style>
+	</Application.Styles>
+</Application>
