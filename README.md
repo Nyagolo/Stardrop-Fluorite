@@ -21,6 +21,7 @@
 - **双击模组名称**，打开该模组所在的文件夹。
 - **双击备注栏**，打开完整的备注窗口，可查看和编辑长备注。单击备注栏可直接在列表中编辑。
 - **双击缩略图**，选择本地图片替换。没有图片时，双击「＋」即可添加。选图窗口会从该模组所在的文件夹开始。
+- **右键新建分类**，先输入名称并点勾。同文件夹还有其他模组时，可以选择「文件夹内全部」或「仅所选」。点提示框右上角的「×」可取消。
 
 ## 使用 Windows 版
 
@@ -63,6 +64,7 @@ This is an unofficial fork of [Floogen/Stardrop](https://github.com/Floogen/Star
 - **Double-click a mod name** to open the folder where the mod is installed.
 - **Double-click a note cell** to read or edit the full note in a separate window. Single-click to edit it directly in the list.
 - **Double-click a thumbnail** to replace it with a local image. If the mod has no thumbnail, double-click **+** to add one. The image picker starts in the mod’s folder.
+- **Create a category from the right-click menu** by entering a name and confirming it first. If there are other mods in the same folder, choose **Include others** or **Selected only**. Click **×** in the top-right corner to cancel.
 
 ### Install on Windows
 

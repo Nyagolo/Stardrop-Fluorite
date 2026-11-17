@@ -35,6 +35,16 @@ namespace Stardrop.Views
             this.SizeToContent = SizeToContent.Height;
         }
 
+        internal void EnableDismissButton()
+        {
+            this.FindControl<Button>("negativeButton").IsCancel = false;
+            var dismiss = this.FindControl<Button>("dismissButton");
+            dismiss.IsVisible = true;
+            dismiss.IsCancel = true;
+        }
+
+        private void DismissButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e) => Close();
+
         private void PositiveButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             this.Close(true);

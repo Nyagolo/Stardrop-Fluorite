@@ -863,39 +863,16 @@ namespace Stardrop.Views
         }
 
         /// <summary>
-        /// Every mod sharing the same immediate parent folder as <paramref name="mod"/>, including mods
-        /// filed directly in a top-level category. Used by batch category assignment, where the user
-        /// explicitly asks to take the whole folder regardless of component depth.
+        /// Finds mods whose folders share an immediate parent with any of the selected mods.
         /// </summary>
-        private List<Mod> GetSameFolderMods(Mod mod)
+        private IEnumerable<Mod> GetSameFolderMods(IEnumerable<Mod> mods)
         {
-            var matches = new List<Mod>();
-            if (String.IsNullOrWhiteSpace(mod.ModFileInfo.DirectoryName))
-            {
-                return matches;
-            }
+            static string? ParentFolder(Mod mod) => mod.ModFileInfo.DirectoryName is string directory
+                ? Path.GetDirectoryName(directory)
+                : null;
 
-            var parent = Path.GetDirectoryName(Path.GetFullPath(mod.ModFileInfo.DirectoryName));
-            if (parent is null)
-            {
-                return matches;
-            }
-
-            foreach (var candidate in _viewModel.Mods)
-            {
-                if (String.IsNullOrWhiteSpace(candidate.ModFileInfo.DirectoryName))
-                {
-                    continue;
-                }
-
-                var candidateParent = Path.GetDirectoryName(Path.GetFullPath(candidate.ModFileInfo.DirectoryName));
-                if (String.Equals(parent, candidateParent, StringComparison.OrdinalIgnoreCase))
-                {
-                    matches.Add(candidate);
-                }
-            }
-
-            return matches;
+            var parents = mods.Select(ParentFolder).OfType<string>().ToHashSet(StringComparer.OrdinalIgnoreCase);
+            return _viewModel.Mods.Where(mod => ParentFolder(mod) is string parent && parents.Contains(parent));
         }
 
         private void ModGridMenuRow_ChangeState(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -1163,13 +1140,13 @@ namespace Stardrop.Views
             {
                 Header = Program.translation.Get("ui.main_window.menu_items.context.custom_category_none")
             };
-            clearItem.Click += async (_, _) => await RunCategoryMenuAction(contextMenu, () => AssignCustomCategory(targets, String.Empty));
+            clearItem.Click += async (_, _) => await RunCategoryMenuAction(contextMenu, () => AssignCustomCategoryFromMenu(targets, String.Empty));
             items.Add(clearItem);
 
             var categories = Program.customCategories.OrderedCategories.ToList();
             var emptyLabel = Program.translation.Get("ui.main_window.menu_items.context.custom_category_empty");
             items.AddRange(CategoryMenu.Build(categories, CustomCategoryStore.Separator,
-                category => RunCategoryMenuAction(contextMenu, () => AssignCustomCategory(targets, category)), emptyLabel));
+                category => RunCategoryMenuAction(contextMenu, () => AssignCustomCategoryFromMenu(targets, category)), emptyLabel));
 
             items.Add(new Separator());
 
@@ -1216,13 +1193,7 @@ namespace Stardrop.Views
             var targets = new HashSet<Mod>(selected);
             if (window.IncludeSiblings)
             {
-                foreach (var mod in selected)
-                {
-                    foreach (var folderMate in GetSameFolderMods(mod))
-                    {
-                        targets.Add(folderMate);
-                    }
-                }
+                targets.UnionWith(GetSameFolderMods(selected));
             }
 
             await AssignCustomCategory(targets.ToList(), window.SelectedCategory);
@@ -1251,25 +1222,61 @@ namespace Stardrop.Views
             return Task.CompletedTask;
         }
 
-        private async Task CreateCustomCategory(List<Mod> targets)
+        private async Task<List<Mod>?> ChooseCustomCategoryTargets(List<Mod> selected)
         {
-            if (await PromptNewCategory(this) is string category)
+            var others = GetSameFolderMods(selected).Except(selected).ToList();
+            if (others.Count == 0)
+            {
+                return selected;
+            }
+
+            var prompt = new MessageWindow(
+                String.Format(Program.translation.Get("ui.main_window.menu_items.context.custom_category_scope"), others.Count),
+                Program.translation.Get("ui.main_window.menu_items.context.custom_category_all"),
+                Program.translation.Get("ui.main_window.menu_items.context.custom_category_only"));
+            prompt.EnableDismissButton();
+            var includeOthers = await prompt.ShowDialog<bool?>(this);
+            return includeOthers switch
+            {
+                true => selected.Concat(others).ToList(),
+                false => selected,
+                null => null
+            };
+        }
+
+        private async Task AssignCustomCategoryFromMenu(List<Mod> selected, string category)
+        {
+            if (await ChooseCustomCategoryTargets(selected) is { } targets)
             {
                 await AssignCustomCategory(targets, category);
             }
         }
 
+        private async Task CreateCustomCategory(List<Mod> targets)
+        {
+            if (await ReadNewCategoryName(this) is string category
+                && await ChooseCustomCategoryTargets(targets) is { } confirmed)
+            {
+                Program.customCategories.Create(category);
+                await AssignCustomCategory(confirmed, category);
+            }
+        }
+
         private static async Task<string?> PromptNewCategory(Window owner)
+        {
+            var category = await ReadNewCategoryName(owner);
+            if (category is not null)
+            {
+                Program.customCategories.Create(category);
+            }
+            return category;
+        }
+
+        private static async Task<string?> ReadNewCategoryName(Window owner)
         {
             var name = await new CategoryNamingWindow().ShowDialog<string?>(owner);
             var normalized = Program.customCategories.Normalize(name ?? String.Empty);
-            if (normalized.Length == 0)
-            {
-                return null;
-            }
-
-            Program.customCategories.Create(normalized);
-            return normalized;
+            return normalized.Length > 0 ? normalized : null;
         }
 
         private async Task<bool> DeleteCustomCategory(string category, Window owner)
