@@ -1,0 +1,55 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+        xmlns:i18n="clr-namespace:Stardrop.Utilities.Extension"
+        x:Class="Stardrop.Views.CategoryNamingWindow"
+        Title="{i18n:Translate ui.category_window.title}"
+        Width="380"
+        Height="210"
+        MinWidth="340"
+        MinHeight="190"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False"
+        Background="{DynamicResource ThemeBackgroundBrush}"
+        Icon="/Assets/icon.ico">
+
+	<Window.Styles>
+		<Style Selector="Button:pointerover /template/ ContentPresenter">
+			<Setter Property="Background" Value="{DynamicResource ButtonHoverBrush}"/>
+		</Style>
+		<Style Selector="Button:pressed /template/ ContentPresenter">
+			<Setter Property="Background" Value="{DynamicResource ButtonPressedBrush}"/>
+		</Style>
+		<Style Selector="TextBox:focus">
+			<Setter Property="Foreground" Value="{DynamicResource ThemeForegroundBrush}"/>
+			<Setter Property="Background" Value="{DynamicResource AlternativeDataGridRowBackground}"/>
+		</Style>
+		<Style Selector="TextBox:focus /template/ Border">
+			<Setter Property="BorderBrush" Value="{DynamicResource HighlightBrush}"/>
+			<Setter Property="Background" Value="{DynamicResource AlternativeDataGridRowBackground}"/>
+		</Style>
+		<Style Selector="TextBox:not(:focus)">
+			<Setter Property="Foreground" Value="{DynamicResource ThemeForegroundBrush}"/>
+			<Setter Property="Background" Value="{DynamicResource DataGridRowBackground}"/>
+		</Style>
+	</Window.Styles>
+
+	<Grid Margin="20">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+
+		<TextBlock Grid.Row="0" Text="{i18n:Translate ui.category_window.label}" TextWrapping="Wrap" Foreground="{DynamicResource ThemeForegroundBrush}" />
+
+		<Border Grid.Row="1" Margin="0 10" BorderBrush="{DynamicResource HighlightBrush}" BorderThickness="2">
+			<TextBox Name="categoryNameBox" Background="{DynamicResource DataGridRowBackground}" Foreground="{DynamicResource ThemeForegroundHighBrush}" />
+		</Border>
+
+		<DockPanel Grid.Row="2">
+			<Button Name="applyButton" i:Attached.Icon="mdi-check" Margin="0 0 0 0" HorizontalAlignment="Left" BorderBrush="{DynamicResource HighlightBrush}" Foreground="Green" Background="Transparent" />
+			<Button Name="cancelButton" IsCancel="True" i:Attached.Icon="mdi-cancel" Margin="0 0 0 0" HorizontalAlignment="Right" BorderBrush="{DynamicResource HighlightBrush}" Foreground="Red" Background="Transparent" />
+		</DockPanel>
+	</Grid>
+</Window>
