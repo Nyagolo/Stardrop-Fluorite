@@ -78,7 +78,19 @@ namespace Stardrop.Models
         private string _updateUri { get; set; }
         public string UpdateUri { get { return _updateUri; } set { _updateUri = value; NotifyPropertyChanged("UpdateUri"); } }
         private string _modPageUri { get; set; }
-        public string ModPageUri { get { return _modPageUri; } set { _modPageUri = value; NotifyPropertyChanged("ModPageUri"); } }
+        public string ModPageUri
+        {
+            get => _modPageUri;
+            set
+            {
+                _modPageUri = value;
+                NotifyPropertyChanged();
+                NotifyPropertyChanged(nameof(BrowsableModPageUri));
+            }
+        }
+
+        public string? BrowsableModPageUri => !String.IsNullOrWhiteSpace(ModPageUri) ? ModPageUri
+            : NexusModId is int id ? FormattableString.Invariant($"https://www.nexusmods.com/stardewvalley/mods/{id}") : null;
         public int? NexusModId { get { return GetNexusId(); } }
         private string? _nexusModThumbnailPath { get; set; }
         public string? NexusModThumbnailPath

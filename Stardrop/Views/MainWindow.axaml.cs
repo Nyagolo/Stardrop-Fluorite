@@ -990,13 +990,10 @@ namespace Stardrop.Views
 
         private void ModGridMenuRow_OpenModPage(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-            var selectedMod = (sender as MenuItem).DataContext as Mod;
-            if (selectedMod is null)
+            if (sender is MenuItem { DataContext: Mod mod } && mod.BrowsableModPageUri is string pageUri)
             {
-                return;
+                Toolkit.OpenBrowser(pageUri);
             }
-
-            Toolkit.OpenBrowser(selectedMod.ModPageUri);
         }
 
         private void ModGridMenuRow_ShowWholeModGroup(object? sender, Avalonia.Interactivity.RoutedEventArgs e)

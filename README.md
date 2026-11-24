@@ -2,6 +2,8 @@
 
 [English](#stardrop-fluorite-edition)
 
+当前改版版本：**1.0.2**。查看[本次更新说明](RELEASE-NOTES-1.0.2.md)。
+
 这是基于 [Floogen/Stardrop](https://github.com/Floogen/Stardrop) 的非官方改版，用于管理《星露谷物语》的 SMAPI 模组。发布包基于上游 1.11.0 开发分支的 [e899ee7](https://github.com/Floogen/Stardrop/commit/e899ee7a6ffa3479d247e5626672e5d8c297f48e) 制作。保留原项目的 [GPL-3.0 许可证](LICENSE) 和[项目说明及贡献者名单](README.upstream.md)。
 
 ## 改版功能
@@ -14,6 +16,7 @@
 | 右键归类有时会移错模组，列表刷新后还得重新找位置。 | 归类针对实际右键点击的模组或当时的多选项。刷新后尽量保留原来的浏览位置和分类折叠状态。 |
 | 长备注占用列表空间，切换配置方案后还得重新找备注。 | 列表最多显示两行，超出时用省略号。单击可直接编辑，双击可打开完整备注窗口。同一模组的备注在各配置方案之间共享。 |
 | 模组没有缩略图，或者希望换掉 Nexus 提供的图片。 | 双击缩略图或「＋」可添加或替换图片。选图窗口从该模组所在目录开始，自定义图片优先显示。 |
+| 模组已填写 Nexus 更新编号，右键菜单却没有「打开模组页面」。 | 当更新接口没有返回页面地址时，使用有效的 Nexus 编号生成网页链接；接口提供的页面地址仍优先使用。 |
 | 模组很多时，加载缩略图和展开分类容易卡顿。 | 按需加载可见行的缩略图，分批处理缩略图缓存，并优化分类展开和折叠时的列表刷新。 |
 
 ## 你可能需要知道的操作
@@ -45,6 +48,8 @@
 
 [简体中文](#stardrop-莹石版)
 
+Current fork version: **1.0.2**. See the [release notes](RELEASE-NOTES-1.0.2.md).
+
 This is an unofficial fork of [Floogen/Stardrop](https://github.com/Floogen/Stardrop), a SMAPI mod manager for Stardew Valley. The release is based on [commit e899ee7](https://github.com/Floogen/Stardrop/commit/e899ee7a6ffa3479d247e5626672e5d8c297f48e) from the upstream 1.11.0 development branch. See the original [GPL-3.0 license](LICENSE) and [project README and contributor credits](README.upstream.md).
 
 ### What’s different
@@ -57,6 +62,7 @@ This is an unofficial fork of [Floogen/Stardrop](https://github.com/Floogen/Star
 | Right-clicking to reassign a mod could affect the wrong row, and refreshing the list could make you lose your place. | Category commands use the row you right-clicked or the mods you had selected at the time. The list restores your previous position and collapsed groups where possible. |
 | Long notes take up space in the list, and notes can differ across profiles. | The list shows up to two lines with an ellipsis for longer notes. Single-click to edit in place or double-click for the full editor. Notes for the same mod are shared across profiles. |
 | Some mods lack thumbnails, or you want a different image from the one provided by Nexus. | Double-click the thumbnail or **+** to add or replace an image. The picker starts in the mod’s folder, and your image takes priority. |
+| A mod has a Nexus update key, but the right-click menu does not offer to open its mod page. | If the update API does not return a page URL, a link is generated from a valid Nexus ID. A URL supplied by the API still takes priority. |
 | Large mod lists can lag when loading thumbnails or expanding categories. | Thumbnails are loaded on demand for visible rows, cache updates run in batches, and the list refreshes more efficiently when categories expand or collapse. |
 
 ### Shortcuts you might find useful

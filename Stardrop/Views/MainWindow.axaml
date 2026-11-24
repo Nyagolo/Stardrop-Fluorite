@@ -531,7 +531,7 @@
 					<ContextMenu x:Key="GridRowContextMenu">
 						<MenuItem Header="{i18n:Translate ui.main_window.menu_items.context.open}">
 							<MenuItem Header="{i18n:Translate ui.main_window.menu_items.context.open_containing_folder}" Click="ModGridMenuRow_OpenFolderPath" />
-							<MenuItem Header="{i18n:Translate ui.main_window.menu_items.context.open_mod_page}" Click="ModGridMenuRow_OpenModPage" IsVisible="{Binding ModPageUri, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+						<MenuItem Header="{i18n:Translate ui.main_window.menu_items.context.open_mod_page}" Click="ModGridMenuRow_OpenModPage" IsVisible="{Binding BrowsableModPageUri, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
 							<MenuItem Header="{i18n:Translate ui.main_window.menu_items.context.open_manifest}" Command="{Binding $parent[DataGrid].DataContext.OpenBrowser}" CommandParameter="{Binding ManifestFilePath}" />
 							<MenuItem Header="{i18n:Translate ui.main_window.menu_items.context.open_config}" Command="{Binding $parent[DataGrid].DataContext.OpenBrowser}" CommandParameter="{Binding Config.FilePath}" IsVisible="{Binding HasConfig}" />
 						</MenuItem>
