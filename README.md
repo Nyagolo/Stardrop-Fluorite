@@ -8,23 +8,44 @@
 
 ## 改版功能
 
-| 问题 | 解决方案 |
-| --- | --- |
-| 模组一多，两级分类不够用，右键菜单也很难找。 | 新增三级自定义分类。设置开启，不会改变原有文件夹目录，右键菜单按父子分类分层显示。 |
-| 分类和子分类太多，查找和整理费时。 | 「分类管理」支持重命名和删除。分类树可折叠，每个分类旁显示模组数量。 |
-| 多个模组要归入同一分类，逐个操作太慢。 | 在列表里多选模组，打开「分类管理」，选好分类后点「应用到所选模组」。也可以勾选「同时包含同文件夹下的其他模组」。 |
-| 右键归类有时会移错模组，列表刷新后还得重新找位置。 | 归类针对实际右键点击的模组或当时的多选项。刷新后尽量保留原来的浏览位置和分类折叠状态。 |
-| 长备注占用列表空间，切换配置方案后还得重新找备注。 | 列表最多显示两行，超出时用省略号。单击可直接编辑，双击可打开完整备注窗口。同一模组的备注在各配置方案之间共享。 |
-| 模组没有缩略图，或者希望换掉 Nexus 提供的图片。 | 双击缩略图或「＋」可添加或替换图片。选图窗口从该模组所在目录开始，自定义图片优先显示。 |
-| 模组已填写 Nexus 更新编号，右键菜单却没有「打开模组页面」。 | 当更新接口没有返回页面地址时，使用有效的 Nexus 编号生成网页链接；接口提供的页面地址仍优先使用。 |
-| 模组很多时，加载缩略图和展开分类容易卡顿。 | 按需加载可见行的缩略图，分批处理缩略图缓存，并优化分类展开和折叠时的列表刷新。 |
+### 分类与批量管理
+
+- **自定义分类**：可在设置中开启，不改变原有文件夹目录。右键菜单按父子分类分层显示。
+- **文件夹分类**：支持通过右键菜单将模组移动到其他分类文件夹。
+- **同文件夹一起处理**：可选择「同时包含同文件夹下的其他模组」，快速整理同一模组的多个组件。
+- **批量操作**：支持多选模组进行分类、删除等操作。也可以打开「分类管理」，选好分类后点「应用到所选模组」，并按需勾选「同时包含同文件夹下的其他模组」。
+- **保留浏览位置**：归类针对实际右键点击的模组或当时的多选项。刷新后尽量保留原来的浏览位置和分类折叠状态。
+
+例如，East Scarp 的以下组件可以通过同文件夹选项一起处理：
+
+```text
+East Scarp C#
+East Scarp Core
+East Scarp FTM
+East Scarp NPCs
+```
+
+### 备注
+
+- **两行预览**：列表最多显示两行，超出时用省略号。
+- **单击编辑，双击展开**：单击可直接编辑；双击可打开完整备注窗口。
+- **跨配置方案共享**：同一模组的备注在各配置方案之间同步。
+
+### 缩略图
+
+- **添加与替换**：双击缩略图或「＋」即可选择本地图片。
+- **从模组目录选图**：选图窗口默认打开该模组所在文件夹，自定义图片优先显示。
+
+### 其他优化
+
+- **模组页面链接**：当更新接口没有返回页面地址时，使用有效的 Nexus 编号生成网页链接；接口提供的页面地址仍优先使用。
+- **列表性能**：按需加载可见行的缩略图，分批处理缩略图缓存，并优化分类展开和折叠时的列表刷新。
 
 ## 你可能需要知道的操作
 
 - **双击模组名称**，打开该模组所在的文件夹。
 - **双击备注栏**，打开完整的备注窗口，可查看和编辑长备注。单击备注栏可直接在列表中编辑。
 - **双击缩略图**，选择本地图片替换。没有图片时，双击「＋」即可添加。选图窗口会从该模组所在的文件夹开始。
-- **右键新建分类**，先输入名称并点勾。同文件夹还有其他模组时，可以选择「文件夹内全部」或「仅所选」。点提示框右上角的「×」可取消。
 
 ## 使用 Windows 版
 
@@ -54,23 +75,44 @@ This is an unofficial fork of [Floogen/Stardrop](https://github.com/Floogen/Star
 
 ### What’s different
 
-| Problem | Solution |
-| --- | --- |
-| Two category levels are not enough for a large mod library, and categories are hard to find in a crowded right-click menu. | Enable three-level custom categories in Settings. Your existing mod folder structure stays intact, and the right-click menu groups subcategories under their parent categories. |
-| Finding and organizing categories takes time when there are many subcategories. | Use category management to rename and delete categories. The category tree can be collapsed, and each category shows its mod count. |
-| Assigning several mods to the same category one at a time takes too long. | Select multiple mods, open category management, choose a category, and apply it to the selected mods. You can also include other mods in the same folders. |
-| Right-clicking to reassign a mod could affect the wrong row, and refreshing the list could make you lose your place. | Category commands use the row you right-clicked or the mods you had selected at the time. The list restores your previous position and collapsed groups where possible. |
-| Long notes take up space in the list, and notes can differ across profiles. | The list shows up to two lines with an ellipsis for longer notes. Single-click to edit in place or double-click for the full editor. Notes for the same mod are shared across profiles. |
-| Some mods lack thumbnails, or you want a different image from the one provided by Nexus. | Double-click the thumbnail or **+** to add or replace an image. The picker starts in the mod’s folder, and your image takes priority. |
-| A mod has a Nexus update key, but the right-click menu does not offer to open its mod page. | If the update API does not return a page URL, a link is generated from a valid Nexus ID. A URL supplied by the API still takes priority. |
-| Large mod lists can lag when loading thumbnails or expanding categories. | Thumbnails are loaded on demand for visible rows, cache updates run in batches, and the list refreshes more efficiently when categories expand or collapse. |
+#### Categories and batch management
+
+- **Custom categories**: Enable them in Settings to organize mods without changing your folder structure. The right-click menu groups subcategories under their parents.
+- **Folder-based categories**: Move mods to another category folder through the right-click menu.
+- **Include other mods in the same folder**: Organize multiple components of a mod together using the same-folder option.
+- **Batch operations**: Select multiple mods to categorize or delete them together. You can also open category management, choose a category, and apply it to the selected mods, optionally including other mods in the same folders.
+- **Keep your place**: Category commands use the row you right-clicked or the mods selected at the time. Refreshing the list restores your browsing position and collapsed groups where possible.
+
+For example, the following East Scarp components can be handled together using the same-folder option:
+
+```text
+East Scarp C#
+East Scarp Core
+East Scarp FTM
+East Scarp NPCs
+```
+
+#### Notes
+
+- **Two-line preview**: Notes show up to two lines in the list, with an ellipsis for longer text.
+- **Single-click to edit, double-click to expand**: Edit directly in the list or open the full note editor.
+- **Shared across profiles**: Notes for the same mod stay in sync across profiles.
+
+#### Thumbnails
+
+- **Add or replace images**: Double-click a thumbnail or **+** to choose a local image.
+- **Start in the mod’s folder**: The image picker opens in the mod’s folder, and your custom image takes priority.
+
+#### Other improvements
+
+- **Mod page links**: If the update API does not return a page URL, a link is generated from a valid Nexus ID. A URL supplied by the API still takes priority.
+- **List performance**: Thumbnails are loaded on demand for visible rows, cache updates run in batches, and the list refreshes more efficiently when categories expand or collapse.
 
 ### Shortcuts you might find useful
 
 - **Double-click a mod name** to open the folder where the mod is installed.
 - **Double-click a note cell** to read or edit the full note in a separate window. Single-click to edit it directly in the list.
 - **Double-click a thumbnail** to replace it with a local image. If the mod has no thumbnail, double-click **+** to add one. The image picker starts in the mod’s folder.
-- **Create a category from the right-click menu** by entering a name and confirming it first. If there are other mods in the same folder, choose **Include others** or **Selected only**. Click **×** in the top-right corner to cancel.
 
 ### Install on Windows
 
